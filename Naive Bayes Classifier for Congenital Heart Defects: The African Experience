@@ -1,0 +1,92 @@
+Introduction:
+
+Unlike the long time belief that only infectious diseases are the problems of the developing countries, there are a growing evidence that show non-infectious chronic diseases are also getting the momentum. Reports (Nugent E. (2008), p.70) show that disease burden in the developing countries includes chronic diseases (49%), communicable diseases (40%) and injury related problems (11%). The same paper (P.73) mentioned that the reason for the increased prevalence of chronic diseases in developing countries are over nutrition, lack of physical activity and tobacco use.
+
+Data in Africa about the impact of chronic diseases on healthcare is scarce, but Tankeu et al (2017) referred to the recent statistics from the UK Health System to show the burden of chronic disease patients on the healthcare services. They reported that chronic disease conditions contribute for 80% of general practitioner consultations, 60% of hospital bed days, two-thirds of patients admitted as medical emergencies, and for patients with more than one condition whose costs are six times higher than those with only one. The same paper mentioned that evidence from the United States also shows that the care of people with chronic conditions consumes about 78% of all healthcare spending.
+
+The growing prevalence of chronic diseases and their associated risk factors have also impacted the prevalence of congenital heart diseases, and in this paper, I used the dataset from South Africa heart study back in 1993 to see the role of naïve Bayesian methods to model disease diagnostic machine learning algorithm for disease conditions such as congenital heart defects where expertise is scarce. The Dataset has 480 samples and 10 features; the features included - sbp: systolic blood pressure, tobacco: cumulative tobacco (kg), ldl: low densiity lipoprotein cholesterol, adiposity, famhist: family history of heart disease (Present, Absent), typea: type-A behavior, obesity, alcohol: current alcohol consumption, and age: age at onset
+
+Analysis:
+
+Numerical Summary:
+Presence of outliers was evaluated with interquartile range as:
+
+X(min)< Q1-1.5*IQR or X(max)> Q3 +1.5*IQR
+
+Based on this calculation the values in  Fig1 was assessed for the possible outliers, and  systolic blood pressure, obesity and, tobacco and alcohol use were found to have  maximum values above the range; whereas, type A behavior has been found to have  minimum value which is below the range. In addition, the data show that most patients  have not had family history of congenital heart Defects, and most children did not have congenital defects in this study.
+
+
+Fig.1: Numerical Summary Risk factors in  Congenital Heart Defects Study
+
+Graphical data exploration
+Risk factors have been evaluated for normality distribution by running series of plotting functions as in Fig 2 for systolic blood pressure. And systolic blood pressure, age and type A behavior have been found to be perfectly distributed. The distributions of ldl, adiposity and obesity have been cluttering along the middle of the curve while tobacco and alcohol occupied the bottom most of the curve.  
+
+Fig.2: Scatter plot of systolic blood pressure of the study subjects
+
+The independence assumption of the risk factors has also been checked by running correlation functions (pairs to be more specific) as in Fig.3. Most variables met the independence criteria except adiposity and obesity which have shown to be positively correlated. 
+
+
+Fig 3: Correlation Matrix of the independent variables for Congenital Heart Defects stud
+
+Data pre-processing
+Data were checked for missing values and for distribution abnormalities, and except the ones which were rightly skewed as  mentioned above,  there were no significant disturbance in data distribution that affected the analysis. Then only further processing using discretization and factorization functions were run; so that, numerical variables would be changed into categorical counter parts. Factorization was done on family history and congenital heart defects (the class variable) , and discretization was done for all the other variables.  The right skewness of the data in systolic blood pressure, tobacco and alcohol use was also apparent in here as it was shown in Fig 4. Because of the variation in the unit of measurement, there is a scale variation among variables as seen on this graph,  but this should not be used for comparison purpose.
+
+Fig 4. Boxplot of risk factors of Congenital Heart Defect Study
+
+Model building
+
+After evaluating for the assumptions, Naïve Bayes classifier model was developed employing the two-staged train and test approach. Naïve Bayes classifier uses categorical and numerical for independent variables., but only categorical for dependent variables. Naive Bayes Classifier is based on:
+
+Bayes’ theorem:  P(H|X) =P(X|H) P(H) P(X))
+
+                    Probability of H given X(Posterior probability of class)
+
+                                                                         Equals
+
+                   Probability of X given H(posterior probability of the factor)
+
+                                               multiplied by
+
+                   Probability of H(Prior probability of the class and
+
+                                                                        divided by
+
+                Probability of X(Prior probability of the factor)( Naïve
+
+Bayesian classifier:  A tuple X belongs to the class Ci if and
+
+only if P(Ci|X) > P(Cj|X) for 1 ≤j ≤ m,j 6= i.   
+
+ Naïve Bayes Classifier was applied to the independent variables, including sbp (systolic blood pressure), tobacco (cumulative tobacco (kg)), ldl(low densiity lipoprotein cholesterol), adiposity, famhist(family history of heart disease (Present, Absent), typea( type-A behavior), obesity, alcohol( current alcohol consumption), and age: (age at onset), and dependent variable Congenital Heart Defect. The developed model has been discussed further in the section below.
+
+Result:
+The train model had overall accuracy (74%), sensitivity (76%), specificity (69%), false positive    rate (17%), and false negative rate (41%), LR+(2.4), and LR-(0.35); whereas, the test model had accuracy (71 %), sensitivity (80%), specificity (56%), false negative (25%), false positive (37%), LR+(1.8), and  LR-(0.35)
+
+The strong contributors of the model included positive history of congenital heart defects, tobacco use, higher level of systolic blood pressure and ldl level. There has also been observed dose-response relationship in alcohol and tobacco use with increased chance of occurrence of congenital heart defects. Age came in to effect later in the age range of 39-46 years old.
+
+The ROC curve as in Fig 5. Shows very close value of likelihood ratio as in calculated above as the highest level of match being at the intersection of 0.2 in the false positive side to the value closer to 0.6 on the all positives part.
+
+
+Fig. 5. Roc curve of the t Naïve Bayes Classifier for Congenital Heart defect  study
+
+Conclusion:
+The overall accuracy, sensitivity and positive likelihood ratio both in the training and testing datasets were very impressive findings for this very basic modeling technique. The match from training to the test models was also very close in many measures that shows the generalizability of the modeling technique and the integrity of the dataset.
+
+Likelihood Ratio and Positive and Negative Predictive values are very useful measures of diagnostic accuracy because they are stable across diverse disease prevalence unlike sensitivity and specificity.  In this task the same findings have been found in the likelihood ratio as both models have close values.  Likelihood ration is directly related with pretest and posttest probability of the disease of a specific patient, and this too is the same as  the Naive Bayes modeling technique in this aspect as well.
+
+The fact that the model showed dose-response relationship in alcohol and tobacco use is also very interesting. According the Bradford-Hill criteria, strength of the association, specificity of the association, temporal sequence of association. biological gradient(dose-response), biological plausibility, coherence and experiment are the criteria to ascertain causation. In this exercise, we have seen dose response relationship, biologic plausibility, consistency in the training and testing model which are in line the causation criteria mentioned.
+
+This work is in line with the growing interest in the application of machine learning in the areas of disease identification/diagnosis, personalized treatment/behavioral modification, drug discovery/manufacturing, clinical trial research, radiology and radiotherapy, smart electronic health records, and epidemic outbreak prediction. Hence, Africa and other resource limited countries can use technologies such as this one to reach out people who really need help because of the limited access to basic healthcare services.
+
+References
+ Nugent R.(2008): Chronic Diseases in Developing Countries Health and Economic Burdens, Ann. N.Y. Acad. Sci. 1136: 70–79 (2008). C 2008 New York Academy of Sciences. doi: 10.1196/annals.1425.027
+
+ Tankeu AT, R Bigna J., N Nansseu R. et al(2017Prevalence and patterns of congenital heart diseases in Africa: a systematic review and meta-analysis protocol . BMJ Open 2017;7:e015633. doi:10.1136/bmjopen-2016-015633
+
+Han, Kamber, and Pei. Data Mining: Concepts and Techniques, retrieved from: http://web.engr.illinois.edu/~hanj/cs412/bk3/08.pdf
+
+Rothman KJ, Modern Epidemiology, Lippincott Williams & Wilkins, 1998, p7-28.
+
+Hill, AB, The environment and disease; association or causation? Proc R Soc Med 1965;58:295-300.
+
+Shaikh SA (2011) Measures Derived from a 2 x 2 Table for an Accuracy of a Diagnostic Test. J Biomet Bio stat 2:128. doi:10.4172/2155-6180.1000128
